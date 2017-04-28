@@ -7,4 +7,4 @@
 - Forismatic api: http://forismatic.com/en/api/
 
 - Angular-cli: https://cli.angular.io/
-- Bootstrap: http://getbootstrap.com/
+- Bootstrap: http://getbootstrap.com/ - https://bootstrapious.com/
