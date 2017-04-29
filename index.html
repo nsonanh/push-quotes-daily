@@ -21,28 +21,26 @@
         <div class="hostDiv">
             <h2>Push Quotes Daily</h2>
         </div>
+
         <!-- Host Div -->
-        <div class="hostDiv">
-            <label for="input-group clockpicker">Enter time daily:</label>
-            <div class="input-group clockpicker timepicker">
-                <input type="text" class="form-control" value="09:30">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-time"></span>
-                </span>
+        <form id="taskForm" action="index.html">
+            <div class="hostDiv" id="hostDiv" action="index.html">
+                <label for="input-group clockpicker">Enter time daily:</label>
+                <div class="input-group clockpicker timepicker">
+                    <input type="text" id="time" class="form-control" value="09:30">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+                <div class="buttonDiv">
+                    <input type="submit" id="submit" class="btn btn-primary" value="Send quotes">
+                </div>
             </div>
-            <div class="buttonDiv">
-                <button type="button" class="btn btn-primary">Send quotes</button>
-            </div>
-        </div>
+        </form>
 
-
-
-        <script type="text/javascript">
-            $('.clockpicker').clockpicker( {
-                placement: 'right',
-                align: 'left',
-                donetext: 'Done'
-            });
-        </script>
+        <!-- Init clockpicker -->
+        <script type="text/javascript" src="scripts/daily_clockpicker.js"></script>
+        <!-- Functions -->
+        <script src="scripts/check_notification.js"></script>
     </body>
 </html>
