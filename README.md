@@ -6,5 +6,4 @@
 - Favq's api: https://favqs.com/api
 - Forismatic api: http://forismatic.com/en/api/
 
-- Angular-cli: https://cli.angular.io/
 - Bootstrap: http://getbootstrap.com/ - https://bootstrapious.com/
