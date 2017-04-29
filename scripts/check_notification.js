@@ -7,10 +7,11 @@ var db;
 
 // create a blank instance of the object that is used to transfer data into the IDB. This is mainly for reference
 var newItem = [
-      { hours: 0, minutes: 0, notified: "no" }
+      { key: 0, hours: 0, minutes: 0, notified: "no" }
     ];
 
 // all the variables we need for the app
+var key = 1;
 var taskForm = document.getElementById('taskForm');
 var time = document.getElementById('time');
 
@@ -60,11 +61,9 @@ window.onload = function() {
     };
 
     // Create an objectStore for this database
-    
-    var objectStore = db.createObjectStore("taskList", { keyPath: "hours" });
-    
+    var objectStore = db.createObjectStore("taskList", { keyPath: "key" });
     // define what data items the objectStore will contain
-    
+    objectStore.createIndex("key", "key", { unique: false });
     objectStore.createIndex("hours", "hours", { unique: false });
     objectStore.createIndex("minutes", "minutes", { unique: false });
 
@@ -81,7 +80,7 @@ window.onload = function() {
             var cursor = event.target.result;
             // if there is still another cursor to go, keep runing this code
             if(cursor) {
-                deleteItem(cursor.value.hours);
+                deleteItem(cursor.value.key);
                 cursor.continue();
             }
         }
@@ -112,7 +111,7 @@ window.onload = function() {
 
       // grab the values entered into the form fields and store them in an object ready for being inserted into the IDB
       var newItem = [
-        { hours: hours, minutes: minutes, notified: "no" }
+        { key:key, hours: hours, minutes: minutes, notified: "no" }
       ];
 
       console.log("here");
@@ -190,10 +189,10 @@ window.onload = function() {
           // 09 -> 9. This is needed because JS date number values never have leading zeros, but our data might.
           // The secondsCheck = 0 check is so that you don't get duplicate notifications for the same task. The notification
           // will only appear when the seconds is 0, meaning that you won't get more than one notification for each task
-          if(+(cursor.value.hours) == hourCheck && +(cursor.value.minutes) == minuteCheck) {
+          if(+(cursor.value.hours) == hourCheck && +(cursor.value.minutes) == minuteCheck && cursor.value.notified == "no") {
 
             // If the numbers all do match, run the createNotification() function to create a system notification
-            createNotification('Victory at all costs, victory in spite of all terror, victory however long and hard the road may be; for without victory, there is no survival." - Winston Churchill');
+            getQuoteAndPushNotif();
           }
           
           // move on and perform the same deadline check on the next cursor item
@@ -205,7 +204,7 @@ window.onload = function() {
   
   // function for creating the notification
   function createNotification(title) {
-
+    console.log(title);
     // Let's check if the browser supports notifications
     if (!"Notification" in window) {
       console.log("This browser does not support notifications.");
@@ -214,11 +213,11 @@ window.onload = function() {
     // Let's check if the user is okay to get some notification
     else if (Notification.permission === "granted") {
       // If it's okay let's create a notification
-      
+
       var img = '/img/icon-128.png';
-      var text = 'HEY! Your task "' + title + '" is now overdue.';
+      var text = title;
       var notification = new Notification('To do list', { body: text, icon: img });
-      
+
       window.navigator.vibrate(500);
     }
 
@@ -240,40 +239,22 @@ window.onload = function() {
           var notification = new Notification('Daily quote', { body: text, icon: img });
           
           window.navigator.vibrate(500);
+        } else {
+          deleteItem(1);
         }
       });
     }
+  };
 
-    //     // At last, if the user already denied any notification, and you 
-    //     // want to be respectful there is no need to bother him any more.
+  function getQuoteAndPushNotif() {
+    getQuote().done(function(data) {
+        var content = data.quote;
+        var author = data.author;
 
-    //     // now we need to update the value of notified to "yes" in this particular data object, so the
-    //     // notification won't be set off on it again
+        createNotification(content + " - " + author);
+    });
+  };
 
-    //     // first open up a transaction as usual
-    //     var objectStore = db.transaction(['taskList'], "readwrite").objectStore('taskList');
-
-    //     // get the to-do list object that has this title as it's title
-    //     var objectStoreTitleRequest = objectStore.get(title);
-
-    //     objectStoreTitleRequest.onsuccess = function() {
-    //       // grab the data object returned as the result
-    //       var data = objectStoreTitleRequest.result;
-        
-    //       // update the notified value in the object to "yes"
-    //       // data.notified = "yes";
-        
-    //       // create another request that inserts the item back into the database
-    //       var updateTitleRequest = objectStore.put(data);
-        
-    //       // when this new request succeeds, run the displayData() function again to update the display
-    //       updateTitleRequest.onsuccess = function() {
-    //         displayData();
-    //       }
-    //     }
-    //   }
-  }
-  
   // using a setInterval to run the checkDeadlines() function every minute
   setInterval(checkDeadlines, 60000);
 }
