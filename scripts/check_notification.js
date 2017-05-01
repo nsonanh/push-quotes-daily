@@ -216,7 +216,7 @@ window.onload = function() {
       // If it's okay let's create a notification
 
       var img = '/img/icon-128.png';
-      var text = 'Today quote: "' + title;;
+      var text = 'Today quote: ' + title;
       var notification = new Notification('Daily quote', { body: text, icon: img });
 
       window.navigator.vibrate(500);
@@ -236,7 +236,7 @@ window.onload = function() {
         // If the user is okay, let's create a notification
         if (permission === "granted") {
           var img = 'img/icon-128.png';
-          var text = 'Today quote: "' + title;
+          var text = 'Today quote: ' + title;
           var notification = new Notification('Daily quote', { body: text, icon: img });
           
           window.navigator.vibrate(500);
@@ -249,7 +249,7 @@ window.onload = function() {
 
   function getQuoteAndPushNotif() {
     getQuote().done(function(data) {
-        var content = data.quote;
+        var content = '"' + data.quote + '"';
         var author = data.author;
 
         createNotification(content + " - " + author);
