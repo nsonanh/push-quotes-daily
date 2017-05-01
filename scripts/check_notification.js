@@ -149,7 +149,9 @@ window.onload = function() {
           showToastr("Time entry \"" + hours + ":" + minutes + "\" successfully created.", true);
           
           // If the task is now (immediately), do it
-          if (now.getHours == +(hours) && now.getMinutes == +(minutes)) {
+          // grab the time and date right now 
+          var now = new Date();
+          if (now.getHours() == +(hours) && now.getMinutes() == +(minutes)) {
             getQuoteAndPushNotif();
           }
         };
