@@ -11,3 +11,6 @@ Ref:
 UI:
 - Bootstrap: http://getbootstrap.com/ - https://bootstrapious.com/
 - Toastr: https://github.com/CodeSeven/toastr
+
+Demo:
+- https://nsonanh.github.io/push-quotes-daily/
