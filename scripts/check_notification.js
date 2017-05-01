@@ -129,6 +129,7 @@ window.onload = function() {
 
       transaction.onerror = function() {
         console.log("Transaction not opened due to error: " + transaction.error);
+        showToastr("Cannot created time entry.", false);
       };
 
       // call an object store that's already been added to the database
@@ -145,12 +146,12 @@ window.onload = function() {
           
           // report the success of our new item going into the database
           console.log("New item put to database.");
+          showToastr("Time entry \"" + hours + ":" + minutes + "\" successfully created.", true);
           
           // clear the form, ready for adding the next entry
           // TODO
 
         };
-         
       };
       
     };
@@ -215,8 +216,8 @@ window.onload = function() {
       // If it's okay let's create a notification
 
       var img = '/img/icon-128.png';
-      var text = title;
-      var notification = new Notification('To do list', { body: text, icon: img });
+      var text = 'Today quote: "' + title;;
+      var notification = new Notification('Daily quote', { body: text, icon: img });
 
       window.navigator.vibrate(500);
     }
@@ -254,6 +255,31 @@ window.onload = function() {
         createNotification(content + " - " + author);
     });
   };
+
+  function showToastr(message, success) {
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+    if (success) {
+      toastr["success"](message);
+    } else {
+      toastr["error"](message);
+    }
+  }
 
   // using a setInterval to run the checkDeadlines() function every minute
   setInterval(checkDeadlines, 60000);
