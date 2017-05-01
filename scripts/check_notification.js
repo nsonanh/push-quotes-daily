@@ -45,8 +45,11 @@ window.onload = function() {
     // store the result of opening the database in the db variable. This is used a lot below
     db = DBOpenRequest.result;
     
-    // Run the displayData() function to populate the task list with all the to-do list data already in the IDB
-    // deleteData();
+    // Set clock picker value
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    $("#time").value = hours < 10 ? "0" + hours : hours + ":" + minutes < 10 ? "0" + minutes : minutes;
   };
   
   // This event handles the event whereby a new version of the database needs to be created
