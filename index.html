@@ -48,5 +48,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <!-- Functions -->
         <script src="scripts/check_notification.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                // Set clock picker value
+                var now = new Date();
+                var hours = now.getHours();
+                var minutes = now.getMinutes();
+                var hoursString = hours < 10 ? "0" + hours : hours;
+                var minutesString = minutes < 10 ? "0" + minutes : minutes;
+                var val = hoursString + ":" + minutesString;
+                $("#time").val(val);
+            });
+        </script>
     </body>
 </html>

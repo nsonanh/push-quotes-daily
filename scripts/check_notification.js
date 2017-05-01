@@ -15,11 +15,6 @@ var key = 1;
 var taskForm = document.getElementById('taskForm');
 
 var time = document.getElementById('time');
-// Set clock picker value
-var now = new Date();
-var hours = now.getHours();
-var minutes = now.getMinutes();
-time.value = hours < 10 ? "0" + hours : hours + ":" + minutes < 10 ? "0" + minutes : minutes;
 
 var submit = document.getElementById('submit');
 
