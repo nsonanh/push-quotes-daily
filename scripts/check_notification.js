@@ -215,7 +215,7 @@ window.onload = function() {
     else if (Notification.permission === "granted") {
       // If it's okay let's create a notification
 
-      var img = '/img/icon-128.png';
+      var img = '/push-quotes-daily/img/icon-128.png';
       var text = 'Today quote: ' + title;
       var notification = new Notification('Daily quote', { body: text, icon: img });
 
@@ -235,7 +235,7 @@ window.onload = function() {
 
         // If the user is okay, let's create a notification
         if (permission === "granted") {
-          var img = 'img/icon-128.png';
+          var img = '/push-quotes-daily/img/icon-128.png';
           var text = 'Today quote: ' + title;
           var notification = new Notification('Daily quote', { body: text, icon: img });
           
