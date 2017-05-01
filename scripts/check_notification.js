@@ -148,9 +148,10 @@ window.onload = function() {
           console.log("New item put to database.");
           showToastr("Time entry \"" + hours + ":" + minutes + "\" successfully created.", true);
           
-          // clear the form, ready for adding the next entry
-          // TODO
-
+          // If the task is now (immediately), do it
+          if (now.getHours == hours && now.getMinutes == minutes) {
+            getQuoteAndPushNotif();
+          }
         };
       };
       
